@@ -30,7 +30,6 @@ router.post("/login", async (req, res) => {
       return res.status(401).json("Wrong password or username!");
     };
 
-    
     // !user && res.status(404).json("Wrong password or username!");
 
     const bytes = CryptoJS.AES.decrypt(
@@ -48,6 +47,8 @@ router.post("/login", async (req, res) => {
     );
     
     const { password, ...info} = user._doc;
+    
+    // console.log(user._doc);
 
     if(original_Password !== req.body.password){
         return res.status(401).json("Wrong password or username!");
