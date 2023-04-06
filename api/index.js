@@ -7,6 +7,7 @@ dotenv.config();
 
 const authRoute = require("./routes/auth");
 const userroute = require("./routes/users");
+const movieRoute = require("./routes/movies");
 
 // const mdlwr = require("./verifyToken")
 
@@ -23,6 +24,7 @@ mongoose
 
   app.use("/api/auth", authRoute);
   app.use("/api/users", userroute);
+  app.use("/api/movies", movieRoute);
 
   // app.use(mdlwr)
 
