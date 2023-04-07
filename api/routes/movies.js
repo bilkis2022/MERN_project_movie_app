@@ -7,7 +7,7 @@ const verify = require("../verifyToken");
 
 router.post("/", verify, async(req, res) => {
     if (req.user.isAdmin) {
-        const newMovie =  Movie(req.body);
+        const newMovie = new Movie(req.body);
 
         try {
             const saveMovie = await newMovie.save();
@@ -45,7 +45,7 @@ router.delete("/:id", verify, async(req, res) => {
     if (req.user.isAdmin) {
         
         try {
-            const deleteMovie = await Movie.findById(req.params.id);
+            const deleteMovie = await Movie.findByIdAndDelete(req.params.id);
             res.status(200).json(deleteMovie);
 
         } catch (error) {
@@ -54,6 +54,22 @@ router.delete("/:id", verify, async(req, res) => {
     }
 });
 
+
+// get___________
+
+
+router.get("/:id", verify, async(req, res) => {
+    if (req.user.isAdmin) {
+        
+        try {
+            const getMovie = await Movie.findById(req.params.id);
+            res.status(200).json(getMovie);
+
+        } catch (error) {
+            res.status(500).json(error);
+        }
+    }
+});
 
 
 // GET_____RANDOM_______
@@ -82,7 +98,7 @@ router.get("/random", async(req, res) => {
             
             res.status(200).json(movie);
         } catch (error) {
-            res.status(500).json("You can update only your account..j");
+            res.status(500).json("not working");
         }
     
 });
