@@ -54,6 +54,39 @@ router.delete("/:id", verify, async(req, res) => {
     }
 });
 
+// GET_____RANDOM_______
+
+router.get("/random", async(req, res) => {
+    const type = req.query.type;
+    let movie;
+
+        try {
+            if(type === "series"){
+                movie = await Movie.aggregate([
+                    {
+                        $match : { isSeries : true},
+                    },
+                    { $sample : { size: 1}},
+                ]);
+            }
+            else {
+                movie = await Movie.aggregate([
+                    {
+                        $match : { isSeries : false},
+                    },
+                    { $sample : { size: 1}},
+                ]);
+            }
+            
+            res.status(200).json(movie);
+        } catch (error) {
+            res.status(500).json("You are not allowed");
+        }
+    
+});
+
+
+
 
 // get___________
 
@@ -72,51 +105,21 @@ router.get("/:id", verify, async(req, res) => {
 });
 
 
-// GET_____RANDOM_______
-
-router.get("/random", async(req, res) => {
-    const type = req.query.type;
-    let movie;
-
-        try {
-            if(type === "series"){
-                movie = Movie.aggregate([
-                    {
-                        $match : { isSeries : true},
-                    },
-                    { $sample : { size: 1}},
-                ]);
-            }
-            else {
-                movie = Movie.aggregate([
-                    {
-                        $match : { isSeries : false},
-                    },
-                    { $sample : { size: 1}},
-                ]);
-            }
-            
-            res.status(200).json(movie);
-        } catch (error) {
-            res.status(500).json("not working");
-        }
-    
-});
 
 // GET ALL________
 
-// router.get("/", verify, async(req, res) => {
-//     const query = req.query.new;
-//     if( req.user.isAdmin){
+router.get("/", verify, async(req, res) => {
+    
+    if( req.user.isAdmin){
         
-//         try {
-//             const users = query ?  await User.find().limit(10) : await User.find();
-//             res.status(200).json(users);
-//         } catch (error) {
-//             res.status(500).json("You are not allowed to see all users..");
-//         }
-//     }
-// });
+        try {
+            const movies =  await Movie.find();
+            res.status(200).json(movies.reverse());
+        } catch (error) {
+            res.status(500).json("You are not allowed to see all users..");
+        }
+    }
+});
 
 
 // GET USER STATS__

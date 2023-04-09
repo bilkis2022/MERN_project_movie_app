@@ -9,6 +9,6 @@ const Listschema = new mongoose.Schema({
 },
 { timestamps: true});
 
-module.export = mongoose.model('List', Listschema);
+module.exports = mongoose.model('List', Listschema);
 
 
