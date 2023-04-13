@@ -20,7 +20,7 @@ export const AuhContextProvider = ({children}) => {
     }, [state.user]);
 
     return (
-        <AuthContext.Provider 
+        <AuthContext.Provider
         
         value={{
             user : state.user,

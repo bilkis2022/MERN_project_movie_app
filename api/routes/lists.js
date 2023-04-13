@@ -2,29 +2,25 @@ const router = require("express").Router();
 const List = require("../models/List");
 const verify = require("../verifyToken");
 
-
 // CREATE_________
 
-router.post("/", verify, async(req, res) => {
-    if (req.user.isAdmin) {
-        const newList = new List(req.body);
+router.post("/", verify, async (req, res) => {
+  if (req.user.isAdmin) {
+    const newList = new List(req.body);
 
-        try {
-            const saveList = await newList.save();
-            res.status(200).json(saveList);
-
-        } catch (error) {
-            res.status(500).json('You are not allowed');
-        }
+    try {
+      const saveList = await newList.save();
+      res.status(200).json(saveList);
+    } catch (error) {
+      res.status(500).json("You are not allowed");
     }
+  }
 });
-
 
 // // UPDATE_________
 
 // router.put("/:id", verify, async(req, res) => {
 //     if (req.user.isAdmin) {
-        
 
 //         try {
 //             const updateMovie = await Movie.findByIdAndUpdate(req.params.id, {
@@ -40,37 +36,46 @@ router.post("/", verify, async(req, res) => {
 
 // // DELETE________
 
-
-// router.delete("/:id", verify, async(req, res) => {
-//     if (req.user.isAdmin) {
-        
-//         try {
-//             const deleteMovie = await Movie.findByIdAndDelete(req.params.id);
-//             res.status(200).json(deleteMovie);
-
-//         } catch (error) {
-//             res.status(500).json(error);
-//         }
-//     }
-// });
-
+router.delete("/:id", verify, async (req, res) => {
+  if (req.user.isAdmin) {
+    try {
+      const deleteList = await List.findByIdAndDelete(req.params.id);
+      res.status(200).json(deleteList);
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  }
+});
 
 // // get___________
 
+router.get("/", verify, async (req, res) => {
+  let typeQuery = req.query.type;
+  let genreQuery = req.query.genre;
+  let list = [];
 
-// router.get("/find/:id", verify, async(req, res) => {
-//     if (req.user.isAdmin) {
-        
-//         try {
-//             const getMovie = await Movie.findById(req.params.id);
-//             res.status(200).json(getMovie);
+  try {
+    if (typeQuery) {
+      if (genreQuery) {
+        list = await List.aggregate([
+          { $sample: { size: 10 } },
+          { $match: { type: typeQuery, genre: genreQuery } },
+        ]);
+      } else {
+        list = await List.aggregate([
+          { $sample: { size: 10 } },
+          { $match: { type: typeQuery } },
+        ]);
+      }
+    } else {
+      list = await List.aggregate([{ $sample: { size: 10 } }]);
+    }
 
-//         } catch (error) {
-//             res.status(500).json(error);
-//         }
-//     }
-// });
-
+    res.status(200).json(list);
+  } catch (error) {
+    res.status(500).json(error)
+  }
+});
 
 // // GET_____RANDOM_______
 
@@ -95,20 +100,20 @@ router.post("/", verify, async(req, res) => {
 //                     { $sample : { size: 1}},
 //                 ]);
 //             }
-            
+
 //             res.status(200).json(movie);
 //         } catch (error) {
 //             res.status(500).json("You are not allowed");
 //         }
-    
+
 // });
 
 // // GET ALL________
 
 // router.get("/", verify, async(req, res) => {
-    
+
 //     if( req.user.isAdmin){
-        
+
 //         try {
 //             const movies =  await Movie.find();
 //             res.status(200).json(movies.reverse());
@@ -117,7 +122,6 @@ router.post("/", verify, async(req, res) => {
 //         }
 //     }
 // });
-
 
 // GET USER STATS__
 
@@ -145,10 +149,10 @@ router.post("/", verify, async(req, res) => {
 //             },
 //         ]);
 //         res.status(200).json(data);
-        
+
 //     } catch (error) {
 //         res.status(500).json(error)
 //     };
-    
+
 // })
 module.exports = router;
