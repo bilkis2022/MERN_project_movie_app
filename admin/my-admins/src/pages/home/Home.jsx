@@ -1,9 +1,11 @@
 import React, { useEffect, useMemo, useState } from "react";
+import "./home.css"
 import axios from "axios";
 import Chart from "../../components/chart/Chart";
 import FeaturedInfo from "../../components/featuredInfo/FeaturedInfo";
 import WidgetSm from "../../components/widgetSm/WidgetSm";
 import WidgeLg from "../../components/widgetLg/WidgeLg";
+import Topbar from "../../components/topbar/Topbar";
 
 const Home = () => {
   const [userStates, setUserStates] = useState([]);
@@ -31,7 +33,7 @@ const Home = () => {
         const res = await axios.get("/users/stats", {
           headers: {
             token:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MmU5N2NkZDZjZjQ1MjIzZDEyM2YxMiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY4MTc1MTY2MiwiZXhwIjoxNjgyMTgzNjYyfQ.G0OK23uwbawjmFMy4FKw_HItuHJ5lcJUy_aWuLFUYF8",
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MmU5N2NkZDZjZjQ1MjIzZDEyM2YxMiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY4MjI0MjM2MiwiZXhwIjoxNjgyNjc0MzYyfQ.xjsHZrh6w8SS9EqssymiPQguVBWKlM-z0DmKgOUYp5w",
           },
         });
 
@@ -57,6 +59,7 @@ const Home = () => {
 
   return (
     <div className="home">
+      
       <FeaturedInfo />
       <Chart
         data={userStates}

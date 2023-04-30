@@ -5,7 +5,7 @@ import { Visibility } from "@mui/icons-material";
 
 const WidgetSm = () => {
 
-  const [newUser, setNewUser] = useState();
+  const [newUser, setNewUser] = useState([]);
 
   useEffect(() => {
     
@@ -14,7 +14,7 @@ const WidgetSm = () => {
       try {
         const res = await axios.get("/users?new=true", {
           headers : {
-            token : "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MmU5N2NkZDZjZjQ1MjIzZDEyM2YxMiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY4MjE4OTU5MSwiZXhwIjoxNjgyNjIxNTkxfQ.14mgxFO3JmEtTZwTq8xEfPv3OnEBylfYrpnHfkpyhIQ"
+            token : "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MmU5N2NkZDZjZjQ1MjIzZDEyM2YxMiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY4MjIyNzM1MCwiZXhwIjoxNjgyNjU5MzUwfQ.WTrmHed5nKXdk26mfnrseiliROacGDE_CZOperrrJcY"
           }
         });
         console.log('newuser', res);
