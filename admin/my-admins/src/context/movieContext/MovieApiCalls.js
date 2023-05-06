@@ -48,7 +48,7 @@ export const CreateMovies = async (movie, dispatch) => {
   }
 };
 
-// update_movies_______
+// delete_movies_______
 
 export const DeleteMovies = async (id, dispatch) => {
   dispatch(deleteMoviesStart());
