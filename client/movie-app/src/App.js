@@ -5,12 +5,18 @@ import "./App.scss";
 import Watch from "./pages/watch/Watch";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
+import { useContext } from "react";
+import { AuthContext } from "./authContext/AuthContext";
+import { Navigate } from "react-router-dom";
 
 function App() {
-  const user = true;
+  const { user } = useContext(AuthContext);
+  
   return (
     <Routes>
-      <Route exact path="/" element={user ? <Home /> : <Register />} />
+
+      <Route exact path="/" element={user ? <Home /> : <Navigate to='/register' replace={true} />} />
+      <Route path='/register' element={ !user ? <Register /> : <Navigate to='/' />}/>
       {user && (
         <>
           <Route path="/movies" element={<Home type="movie" />} />
@@ -20,7 +26,7 @@ function App() {
       )}
 
       <Route path="/login" element={user ? <Home /> : <Login />} />
-      <Route path="/register" element={user ? <Home /> : <Register />} />
+      {/* <Route path="/register" element={ <Register />} /> */}
     </Routes>
   );
 }

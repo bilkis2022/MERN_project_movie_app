@@ -19,11 +19,15 @@ export default function MovieList() {
 
   useEffect(() => {
     GetMovies(dispatch);
+    
   }, [dispatch]);
 
   const handleDelete = (id) => {
     DeleteMovies(id, dispatch);
   };
+
+
+
   const columns = [
     { field: "_id", headerName: "ID", width: 90 },
     {
@@ -31,7 +35,7 @@ export default function MovieList() {
       headerName: "Movie",
       width: 150,
 
-      valueGetter: (params) => {
+      renderCell: (params) => {
         return (
           <div className="productListItem">
             <img className="productListImg" src={params.row.img} alt="" />
@@ -49,11 +53,11 @@ export default function MovieList() {
       field: "action",
       headerName: "Action",
       width: 160,
-      valueGetter: (params) => {
+      renderCell: (params) => {
         return (
           <>
             <Link
-              to={{ pathname: "/movie/" + params.row._id, movie: params.row }}
+              to={`/movie/${params.row._id}`} state={{ some : params.row}}
             >
               <button className="productListEdit">Edit</button>
             </Link>
@@ -75,6 +79,7 @@ export default function MovieList() {
       <DataGrid
         rows={movies}
         columns={columns}
+        getRowId={(row) => row._id}
         initialState={{
           pagination: {
             paginationModel: {
@@ -87,5 +92,14 @@ export default function MovieList() {
         disableRowSelectionOnClick
       />
     </Box>
+    // <div>
+    //   {
+    //     movies.map((item)=>(
+          
+    //       <p>{item.title}</p>
+    //     ))
+    //   }
+    // </div>
+   
   );
 }

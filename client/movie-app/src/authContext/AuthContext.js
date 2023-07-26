@@ -3,7 +3,7 @@ import AuthReducer from "./AuthReducer";
 
 
 const INITIAL_STATE = {
-    user : JSON.parse(localStorage.getItem('user')) || null,
+    user : JSON.parse(localStorage.getItem('userm')) || null,
     isFetching : false,
     error: false
 }
@@ -15,7 +15,8 @@ export const AuhContextProvider = ({children}) => {
 
     useEffect(() => {
 
-        localStorage.setItem('user', JSON.stringify(state.user))
+        localStorage.setItem('userm', JSON.stringify(state.user))
+        console.log('statem', state);
       
     }, [state.user]);
 

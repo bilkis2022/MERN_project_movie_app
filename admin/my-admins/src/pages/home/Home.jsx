@@ -33,7 +33,7 @@ const Home = () => {
         const res = await axios.get("/users/stats", {
           headers: {
             token:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MmU5N2NkZDZjZjQ1MjIzZDEyM2YxMiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY4MjI0MjM2MiwiZXhwIjoxNjgyNjc0MzYyfQ.xjsHZrh6w8SS9EqssymiPQguVBWKlM-z0DmKgOUYp5w",
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MmU5N2NkZDZjZjQ1MjIzZDEyM2YxMiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY4Mzc0MDkyMiwiZXhwIjoxNjg0MTcyOTIyfQ.sTtjezB5tx680fECAncDyMSRjn-7kDZ64QZpPbjfDSM",
           },
         });
 

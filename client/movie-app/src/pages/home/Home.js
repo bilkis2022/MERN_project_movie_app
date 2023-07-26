@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../../components/navbar/Navbar";
 import axios from "axios";
 import List from "../../components/list/List.jsx";
+import Featured from "../../components/featured/Featured";
 
 const Home = ({ type }) => {
   const [list, setList] = useState([]);
@@ -31,6 +32,7 @@ const Home = ({ type }) => {
   return (
     <div className="home">
       <Navbar />
+      <Featured type={type} setGenre={setGenre} />
       {
         list.map((lists)=>
           
